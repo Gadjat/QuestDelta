@@ -12,7 +12,6 @@ import java.time.ZonedDateTime;
 public class Game extends AbstractEntity{
     Long id;
     String userName;
-    ZonedDateTime startTime;
     Long currentQuestionId;
     Long questId;
     GameStatus status;

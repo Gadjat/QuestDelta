@@ -35,7 +35,6 @@ public enum GameService {
                 .currentQuestionId(1L)
                 .userName(name)
                 .status(GameStatus.PLAY)
-                .startTime(ZonedDateTime.now())
                 .build();
         return gameRepository.create(game);
     }
