@@ -1,4 +1,4 @@
-package com.javarush.quest.bulimov.questdelta.dao;
+package com.javarush.quest.bulimov.questdelta.repository.dao;
 
 import lombok.Builder;
 import lombok.Data;

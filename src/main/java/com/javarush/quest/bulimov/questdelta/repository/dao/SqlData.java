@@ -1,4 +1,4 @@
-package com.javarush.quest.bulimov.questdelta.dao;
+package com.javarush.quest.bulimov.questdelta.repository.dao;
 
 public class SqlData {
     private SqlData() {
@@ -21,4 +21,6 @@ public class SqlData {
     public static final String sqlGetGames = """
             SELECT * FROM game.game limit 1
             """;
+
+    public static final String sqlTemplate = "insert into game.game (user_name, current_question_id, quest_id, status_id) values (?, ?, ?, ?)";
 }

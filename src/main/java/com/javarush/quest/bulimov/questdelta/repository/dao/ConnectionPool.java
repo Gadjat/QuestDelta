@@ -1,13 +1,8 @@
-package com.javarush.quest.bulimov.questdelta.dao;
+package com.javarush.quest.bulimov.questdelta.repository.dao;
 
-import com.javarush.quest.bulimov.questdelta.exceptions.DaoException;
 import com.javarush.quest.bulimov.questdelta.util.Property;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashSet;
-import java.util.Properties;
 
 public class ConnectionPool {
     private static HashSet<ConnectionsDB> connectionPool = new HashSet<>();

@@ -1,16 +1,19 @@
-package com.javarush.quest.bulimov.questdelta.dao;
+package com.javarush.quest.bulimov.questdelta.repository.dao;
 import com.javarush.quest.bulimov.questdelta.entity.GameStatus;
 import com.javarush.quest.bulimov.questdelta.exceptions.DaoException;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetFactory;
+import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
-import java.time.LocalDateTime;
 
 public class JdbcStarter {
     public static void main(String[] args) {
 
-        executeResult(SqlData.sqlGetGame);
-        executeQuery(SqlData.sqlGetGames);
-
+//        executeResult(SqlData.sqlGetGame);
+//        executeQuery(SqlData.sqlGetGames);
+//        prepExecute(SqlData.sqlTemplate);
+        rowExecute(SqlData.sqlGetGames);
     }
     private static void execute(String sql){
         try(
@@ -89,6 +92,47 @@ public class JdbcStarter {
         }
         catch (SQLException e) {
             throw  new DaoException(e.getMessage());
+        }
+    }
+
+    private static void prepExecute(String template){
+        try(
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(template);
+        ){
+            preparedStatement.setString(1, "sqlTest");
+            preparedStatement.setLong(2, 45);
+            preparedStatement.setLong(3, 3);
+            preparedStatement.setInt(4, 1);
+
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private static void rowExecute(String sql){
+        try(
+                Connection connection = getConnection();
+                Statement statement = connection.createStatement();
+        ){
+
+            ResultSet resultSet =  statement.executeQuery(sql);
+
+            RowSetFactory rowSetFactory = RowSetProvider.newFactory();
+            CachedRowSet cachedRowSet = rowSetFactory.createCachedRowSet();
+            cachedRowSet.populate(resultSet);
+            while(cachedRowSet.next()){
+                System.out.println(cachedRowSet.getInt(1) + "\t" + cachedRowSet.getString(2) + "\t");
+            }
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
