@@ -1,17 +1,16 @@
 package com.javarush.quest.bulimov.questdelta.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
+
 
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Builder(builderMethodName = "with")
 
-@org.hibernate.annotations.NamedQueries({
-        @org.hibernate.annotations.NamedQuery(name = "getAll", query = "from Game")
-})
 
 @Entity
 public class Game extends AbstractEntity{
@@ -24,7 +23,8 @@ public class Game extends AbstractEntity{
     Long currentQuestionId;
     @Column(name = "quest_id")
     Long questId;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status_id")
     GameStatus status;
 
 

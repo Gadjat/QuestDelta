@@ -1,9 +1,16 @@
 package com.javarush.quest.bulimov.questdelta.repository.hibernate;
 
-import com.javarush.quest.bulimov.questdelta.entity.Game;
+
+
+
+
+
+
+import lombok.SneakyThrows;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 
 import java.util.Arrays;
 
@@ -13,28 +20,21 @@ public class SessionCreator implements AutoCloseable{
 
     private final SessionFactory sessionFactory;
 
+    @SneakyThrows
     public SessionCreator(Class clazz){
         Configuration configuration = new Configuration();
-        configuration.configure();
         configuration.addAnnotatedClass(clazz);
         sessionFactory = configuration.buildSessionFactory();
     }
-    public SessionCreator(Class[] clazz){
-        Configuration configuration = new Configuration();
-        configuration.configure();
-        Arrays.stream(clazz).forEach(configuration::addAnnotatedClass);
-        sessionFactory = configuration.buildSessionFactory();
-    }
 
-    public static Session open(Class clazz){
-        SessionCreator creator = new SessionCreator(clazz);
-        return creator.sessionFactory.openSession();
-    }
-    public static Session open(Class[] clazz){
+    @SneakyThrows
+    public static Session open(Class clazz)  {
         SessionCreator creator = new SessionCreator(clazz);
         return creator.sessionFactory.openSession();
     }
 
+
+    @SneakyThrows
     @Override
     public void close() throws Exception {
         sessionFactory.close();

@@ -12,7 +12,7 @@ public class JdbcStarter {
 
 //        executeResult(SqlData.sqlGetGame);
 //        executeQuery(SqlData.sqlGetGames);
-//        prepExecute(SqlData.sqlTemplate);
+        prepExecute(SqlData.sqlTemplate);
         rowExecute(SqlData.sqlGetGames);
     }
     private static void execute(String sql){

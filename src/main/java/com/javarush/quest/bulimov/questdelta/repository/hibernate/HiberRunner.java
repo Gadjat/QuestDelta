@@ -1,19 +1,12 @@
 package com.javarush.quest.bulimov.questdelta.repository.hibernate;
 
 import com.javarush.quest.bulimov.questdelta.entity.Game;
+
 import com.javarush.quest.bulimov.questdelta.entity.GameStatus;
-import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class HiberRunner {
 
@@ -46,25 +39,17 @@ public class HiberRunner {
                     .questId(63L)
                     .status(GameStatus.PLAY)
                     .build();
-            session.persist(gameCreate);
+            session.save(gameCreate);
             transaction.commit();
 
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Game> queryBuilder = criteriaBuilder.createQuery(Game.class);
-
-            List<Predicate> predicateList = new ArrayList<>();
-
-            Root<Game> gameRoot = queryBuilder.from(Game.class);
-            queryBuilder = queryBuilder.select(gameRoot);
 
 
-
-            Query<Game> query = session.createNamedQuery("getAll", Game.class);
-            query.stream().forEach(s-> System.out.println(s.toString()));
-
-
-            Game game = session.find(Game.class, 2L);
+            Game game = session.find(Game.class, 1L);
             System.out.println(game.toString());
+
+
+            Query<Game> query = session.createQuery("from Game", Game.class);
+            query.stream().forEach(System.out::println);
         }
 //        Class[] classes = new Class[]{Game.class, GameStatus.class};
 //        try(Session session = SessionCreator.open(classes)) {
